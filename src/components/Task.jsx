@@ -1,6 +1,12 @@
 import NewTask from "./NewTask";
 
-function Task({ handelAddTask, handelDeleteTask, tasks, projectID }) {
+function Task({
+  handelAddTask,
+  handelDeleteTask,
+  tasks,
+  projectID,
+  handelChange,
+}) {
   return (
     <section>
       <h2 className="text-2xl font-bold text-stone-700 mb-4">Task</h2>
@@ -22,14 +28,29 @@ function Task({ handelAddTask, handelDeleteTask, tasks, projectID }) {
                 key={task.id}
                 className="flex justify-between p-4 bg-stone-50 m-1"
               >
-                <span>{task.task}</span>
                 <span>
-                  <button
-                    className="text-orange-800 hover:text-orange-500 rounded"
-                    onClick={() => handelDeleteTask(task.id)}
+                  <input
+                    type="checkbox"
+                    value={task.checked}
+                    onChange={() => handelChange(task.id)}
+                  />
+                  <span
+                    className={`ml-4 ${
+                      task.checked ? "line-through decoration-red-700" : ""
+                    }`}
                   >
-                    Clear
-                  </button>
+                    {task.task}
+                  </span>
+                </span>
+                <span>
+                  <span>
+                    <button
+                      className="text-orange-800 hover:text-orange-500 rounded"
+                      onClick={() => handelDeleteTask(task.id)}
+                    >
+                      Clear
+                    </button>
+                  </span>
                 </span>
               </li>
             )

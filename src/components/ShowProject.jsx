@@ -8,6 +8,7 @@ function ShowProject({
   handelDeleteTask,
   projectID,
   tasks,
+  handelChange,
 }) {
   function formateDate(date) {
     const formattedDate = new Date(date).toLocaleDateString("en-US", {
@@ -38,6 +39,7 @@ function ShowProject({
         handelDeleteTask={handelDeleteTask}
         tasks={tasks}
         projectID={projectID}
+        handelChange={handelChange}
       />
     </div>
   );

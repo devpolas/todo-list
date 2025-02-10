@@ -17,6 +17,7 @@ function App() {
       const task = {
         id: Math.ceil(Math.random() * 10101010 + Math.random() * 11110000),
         projectID: prevState.selectedProject,
+        checked: false,
         task: test,
       };
       return {
@@ -30,6 +31,17 @@ function App() {
       return {
         ...prevState,
         tasks: prevState.tasks.filter((task) => task.id !== id),
+      };
+    });
+  }
+
+  function handelChange(id) {
+    setProjectedState((prevState) => {
+      return {
+        ...prevState,
+        tasks: prevState.tasks.map((task) =>
+          task.id === id ? { ...task, checked: !task.checked } : task
+        ),
       };
     });
   }
@@ -119,6 +131,7 @@ function App() {
           handelDeleteTask={handelDeleteTask}
           tasks={projectState.tasks}
           projectID={projectState.selectedProject}
+          handelChange={handelChange}
         />
       )}
     </main>
