@@ -1,12 +1,12 @@
 import Button from "./UI/Button";
-function ProjectSidebar({ handelClick, projects, handelSelectTask, id }) {
+function ProjectSidebar({ handelClick, projects, handelSelectProject, id }) {
   return (
     <aside className="w-1/3 px-8 py-16 bg-stone-900 text-stone-50 md:w-72 rounded-r-xl">
       <h2 className="mb-8 font-bold uppercase md:text-xl text-stone-20">
         Your Projects
       </h2>
       <div>
-        <Button onClick={handelClick}>+ Add Projects</Button>
+        <Button onClick={() => handelClick()}>+ Add Projects</Button>
       </div>
       <ul className="mt-8">
         {projects.map((el) => {
@@ -22,7 +22,7 @@ function ProjectSidebar({ handelClick, projects, handelSelectTask, id }) {
           return (
             <li key={el.id}>
               <button
-                onClick={() => handelSelectTask(el.id)}
+                onClick={() => handelSelectProject(el.id)}
                 className={classes}
               >
                 {el.title}

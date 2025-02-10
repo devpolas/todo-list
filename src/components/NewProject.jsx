@@ -3,7 +3,7 @@ import Button from "./UI/Button";
 import Input from "./UI/Input";
 import Model from "./Model";
 
-function NewProject({ handelProjects, handelCancel }) {
+function NewProject({ handelAddProject, handelCancel }) {
   const modal = useRef();
   const title = useRef();
   const description = useRef();
@@ -22,7 +22,7 @@ function NewProject({ handelProjects, handelCancel }) {
       modal.current.open();
       return;
     }
-    handelProjects({
+    handelAddProject({
       title: enteredTitle,
       description: enteredDescription,
       issueDate: enteredIssueDate,

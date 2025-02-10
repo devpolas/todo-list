@@ -9,9 +9,32 @@ function App() {
     selectedProject: "noProject",
     show: "",
     projects: [],
+    tasks: [],
   });
 
-  function handelSelectTask(id) {
+  function handelAddTask(test) {
+    setProjectedState((prevState) => {
+      const task = {
+        id: Math.ceil(Math.random() * 10101010 + Math.random() * 11110000),
+        projectID: prevState.selectedProject,
+        task: test,
+      };
+      return {
+        ...prevState,
+        tasks: [...prevState.tasks, task],
+      };
+    });
+  }
+  function handelDeleteTask(id) {
+    setProjectedState((prevState) => {
+      return {
+        ...prevState,
+        tasks: prevState.tasks.filter((task) => task.id !== id),
+      };
+    });
+  }
+
+  function handelSelectProject(id) {
     setProjectedState((prevState) => {
       return {
         ...prevState,
@@ -21,7 +44,7 @@ function App() {
     });
   }
 
-  function handelDeleteTask() {
+  function handelDeleteProject() {
     setProjectedState((prevState) => {
       return {
         ...prevState,
@@ -39,23 +62,24 @@ function App() {
       return {
         ...prevState,
         selectedProject: "newProject",
+        show: "",
       };
     });
   }
 
-  function handelProjects(projectData) {
+  function handelAddProject(projectData) {
+    const newProject = {
+      ...projectData,
+      id: Math.ceil(Math.random() * 10101010 + Math.random() * 11110000),
+    };
     setProjectedState((prevState) => {
-      const newProject = {
-        ...projectData,
-        id: Math.ceil(Math.random() * 10101010 + Math.random() * 11110000),
-      };
       return {
         ...prevState,
         selectedProject: "noProject",
-
         projects: [...prevState.projects, newProject],
       };
     });
+    handelSelectProject(newProject.id);
   }
 
   const content = projectState.projects.find(
@@ -75,11 +99,12 @@ function App() {
       <ProjectSidebar
         handelClick={handelClick}
         projects={projectState.projects}
-        handelSelectTask={handelSelectTask}
+        handelSelectProject={handelSelectProject}
+        id={projectState.selectedProject}
       />
       {projectState.selectedProject === "newProject" && (
         <NewProject
-          handelProjects={handelProjects}
+          handelAddProject={handelAddProject}
           handelCancel={handelCancel}
         />
       )}
@@ -87,7 +112,14 @@ function App() {
         <EmptyScreen handelClick={handelClick} />
       )}
       {projectState.show === "show" && (
-        <ShowProject project={content} handelDeleteTask={handelDeleteTask} />
+        <ShowProject
+          project={content}
+          handelDeleteProject={handelDeleteProject}
+          handelAddTask={handelAddTask}
+          handelDeleteTask={handelDeleteTask}
+          tasks={projectState.tasks}
+          projectID={projectState.selectedProject}
+        />
       )}
     </main>
   );
